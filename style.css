@@ -1,6 +1,7 @@
 body {
     background-image: url('./clouds.jpg');
     font-family: 'Red Rose', cursive;
+    color: black;
 }
 
 .container{
