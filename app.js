@@ -20,14 +20,12 @@ function newCity(city) {
 
 }
 
-// load history from local storage to populate buttons
-// function history() {
-
-// }
-
-
 // function to call for todays weather
 function weather(city) {
+    let query = 
+    $.ajax({
+        url: query
+    });
 
 }
 
@@ -61,4 +59,9 @@ $(document).ready(function () {
         // search the city based on the value of the button
         weather($(this).val());
     });
+
+    // create buttons for search history based on local storage
+    for(var i = 0; i < history.length; i++){
+        newCity(history[i]);
+    }
 });
