@@ -17,13 +17,12 @@ function newCity(city) {
     console.log(cityBtn);
     // append to frontend card
     $('#history').append(cityBtn);
-
 }
 
 // function to call for todays weather
 function weather(city) {
     // create query search 
-    let query = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+    let query = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`
     // ajax call
     $.ajax({
         url: query,
@@ -37,6 +36,8 @@ function weather(city) {
                 window.localStorage.setItem('history', JSON.stringify(history));
                 newCity(city);
             }
+            // create elements for the weather 
+            $('#today').empty();
         }
     });
 
