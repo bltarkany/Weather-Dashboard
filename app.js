@@ -1,7 +1,8 @@
 // global variable
 const apiKey = "91a8aba9a4e777059b0459d4f649ec84";
 
-
+// grab local storage for search history or equals an empty array
+let history = JSON.parse(window.localStorage.getItem('history')) || [];
 
 
 // global functions
@@ -13,23 +14,17 @@ function newCity(city) {
         .val(city)
         .addClass('waves-effect waves-teal btn-flat city-btn')
         .text(city);
-    // add onClick to each button 
-    cityBtn.onClick = handleOnClick;
+    console.log(cityBtn);
     // append to frontend card
     $('#history').append(cityBtn);
-    // add the local storage
 
 }
 
 // load history from local storage to populate buttons
-function history() {
+// function history() {
 
-}
+// }
 
-// handle history button onclick
-function handleOnClick() {
-
-}
 
 // function to call for todays weather
 function weather(city) {
@@ -58,5 +53,12 @@ $(document).ready(function () {
         newCity(city);
         // empty the value in the input section
         $('#city').val('');
+    });
+
+    // onclick of the history buttons -- grab the div then the button - jQuery issue
+    $('#history').on('click', 'button', function(){
+        console.log($(this).val());
+        // search the city based on the value of the button
+        weather($(this).val());
     });
 });
