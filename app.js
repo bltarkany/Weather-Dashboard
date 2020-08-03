@@ -22,9 +22,22 @@ function newCity(city) {
 
 // function to call for todays weather
 function weather(city) {
-    let query = 
+    // create query search 
+    let query = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+    // ajax call
     $.ajax({
-        url: query
+        url: query,
+        type: 'GET',
+        dataType: 'json',
+        success: function(res) {
+            console.log(res);
+            // add our city to local storage and create a new button for the city
+            while(history.indexOf(city) === -1){
+                history.push(city);
+                window.localStorage.setItem('history', JSON.stringify(history));
+                newCity(city);
+            }
+        }
     });
 
 }
@@ -48,14 +61,13 @@ $(document).ready(function () {
         let city = $('#city').val().trim();
         console.log(city);
         // run the functions with the city
-        newCity(city);
+        weather(city);
         // empty the value in the input section
         $('#city').val('');
     });
 
     // onclick of the history buttons -- grab the div then the button - jQuery issue
     $('#history').on('click', 'button', function(){
-        console.log($(this).val());
         // search the city based on the value of the button
         weather($(this).val());
     });
