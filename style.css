@@ -4,10 +4,10 @@ body {
     color: black;
 }
 
-.container{
+/* .container{
     margin-left: 50px;
     margin-right: 50px;
-}
+} */
 
 header {
     margin-bottom: 50px;
@@ -23,7 +23,7 @@ nav {
 
 .card {
     background: transparent;
-    border-radius: 10px;
+    border-radius: 25px;
 }
 
 .city-btn {

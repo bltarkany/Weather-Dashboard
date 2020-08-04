@@ -14,7 +14,6 @@ function newCity(city) {
         .val(city)
         .addClass('waves-effect waves-teal btn-flat city-btn')
         .text(city);
-    console.log(cityBtn);
     // append to frontend card
     $('#history').append(cityBtn);
 }
@@ -28,23 +27,55 @@ function weather(city) {
         url: query,
         type: 'GET',
         dataType: 'json',
-        success: function(res) {
+        success: function (res) {
             console.log(res);
             // add our city to local storage and create a new button for the city
-            while(history.indexOf(city) === -1){
+            while (history.indexOf(city) === -1) {
                 history.push(city);
                 window.localStorage.setItem('history', JSON.stringify(history));
                 newCity(city);
             }
             // create elements for the weather 
             $('#today').empty();
+            console.log(res.name);
+            console.log(res.weather[0].description);
+            let name = $('<h3>').addClass('card-tile').text(res.name);
+            // let name = `<h3 class="card-title">${res.name} <img src="http://openweathermap.org/img/wn/${res.weather[0].icon}.png"></h3>`
+            let description = $('<p>').text(`Skies:   ${res.weather[0].description}`);
+            let temp = $('<p>').text(`Current Temperature:   ${res.main.temp}° F`);
+            let feels = $('<p>').text(`Feels Like:   ${res.main.feels_like}° F`);
+            let humidity = $('<p>').text(`Humidity:   ${res.main.humidity}%`);
+            let max = $('<p>').text(`Today's High Temp:   ${res.main.temp_max}° F`);
+            let min = $('<p>').text(`Today's Low Temp:   ${res.main.temp_min}° F`);
+            let wind = $('<p>').text(`Wind Speed:    ${res.wind.speed} mph`);
+
+            // call the UV index function
+            console.log(res.coord.lat, res.coord.lon);
+            uv(res.coord.lat, res.coord.lon);
+
+            let content = $('<div>')
+                .attr('id', 'weather')
+                .addClass('card-content')
+                .append(name, description, temp, feels, humidity, max, min);
+
+            $('#today').append(content);
         }
     });
 
 }
 
 // function to call todays UV index
-function uv(city) {
+function uv(lat, lon) {
+    var qurl = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
+    // ajax call for uv index
+    $.ajax({
+        url: qurl,
+        type: 'GET',
+        dataType: 'json',
+        success: function(res){
+            console.log(res);
+        }
+    })
 
 }
 // function to call for 5 day forecast
@@ -68,13 +99,13 @@ $(document).ready(function () {
     });
 
     // onclick of the history buttons -- grab the div then the button - jQuery issue
-    $('#history').on('click', 'button', function(){
+    $('#history').on('click', 'button', function () {
         // search the city based on the value of the button
         weather($(this).val());
     });
 
     // create buttons for search history based on local storage
-    for(var i = 0; i < history.length; i++){
+    for (var i = 0; i < history.length; i++) {
         newCity(history[i]);
     }
 });
