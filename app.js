@@ -41,7 +41,6 @@ function weather(city) {
             console.log(res.weather[0].description);
             let name = $('<h3>').addClass('card-tile').text(res.name);
             let icon = $('<img>').attr('src', `http://openweathermap.org/img/wn/${res.weather[0].icon}.png`);
-            // let name = `<h3 class="card-title">${res.name} <img src="http://openweathermap.org/img/wn/${res.weather[0].icon}.png"></h3>`
             let description = $('<p>').text(`Skies:   ${res.weather[0].description}`);
             let temp = $('<p>').text(`Current Temperature:   ${res.main.temp}° F`);
             let feels = $('<p>').text(`Feels Like:   ${res.main.feels_like}° F`);
