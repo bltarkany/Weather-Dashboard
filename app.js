@@ -40,6 +40,7 @@ function weather(city) {
             console.log(res.name);
             console.log(res.weather[0].description);
             let name = $('<h3>').addClass('card-tile').text(res.name);
+            let icon = $('<img>').attr('src', `http://openweathermap.org/img/wn/${res.weather[0].icon}.png`);
             // let name = `<h3 class="card-title">${res.name} <img src="http://openweathermap.org/img/wn/${res.weather[0].icon}.png"></h3>`
             let description = $('<p>').text(`Skies:   ${res.weather[0].description}`);
             let temp = $('<p>').text(`Current Temperature:   ${res.main.temp}° F`);
@@ -56,7 +57,7 @@ function weather(city) {
             let content = $('<div>')
                 .attr('id', 'weather')
                 .addClass('card-content')
-                .append(name, description, temp, feels, humidity, max, min);
+                .append(name, icon, description, temp, feels, humidity, max, min);
 
             $('#today').append(content);
         }
@@ -66,16 +67,17 @@ function weather(city) {
 
 // function to call todays UV index
 function uv(lat, lon) {
-    var qurl = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
+    let qurl = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
     // ajax call for uv index
     $.ajax({
         url: qurl,
         type: 'GET',
         dataType: 'json',
         success: function(res){
-            console.log(res);
+            console.log(res.value);
+            let un
         }
-    })
+    });
 
 }
 // function to call for 5 day forecast

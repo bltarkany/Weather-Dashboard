@@ -2,12 +2,8 @@ body {
     background-image: url('./clouds.jpg');
     font-family: 'Red Rose', cursive;
     color: black;
+    line-height: 150%;
 }
-
-/* .container{
-    margin-left: 50px;
-    margin-right: 50px;
-} */
 
 header {
     margin-bottom: 50px;
@@ -26,8 +22,16 @@ nav {
     border-radius: 25px;
 }
 
+.card-content{
+    margin: 15px;
+}
+
 .city-btn {
     width: 100%;
     border: 1px solid gray;
     border-radius: 10px;
+}
+
+#today {
+    border-radius: 50px;
 }
