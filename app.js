@@ -48,17 +48,19 @@ function weather(city) {
             let max = $('<p>').text(`Today's High Temp:   ${res.main.temp_max}° F`);
             let min = $('<p>').text(`Today's Low Temp:   ${res.main.temp_min}° F`);
             let wind = $('<p>').text(`Wind Speed:    ${res.wind.speed} mph`);
-
-            // call the UV index function
-            console.log(res.coord.lat, res.coord.lon);
-            uv(res.coord.lat, res.coord.lon);
+            let uvi = uv(res.coord.lat, res.coord.lon);
+            let displayUV = $('<p>').text(`UV Index:  `);
 
             let content = $('<div>')
                 .attr('id', 'weather')
                 .addClass('card-content')
-                .append(name, icon, description, temp, feels, humidity, max, min);
+                .append(name, icon, description, temp, feels, humidity, max, min, wind, displayUV.append(uvi));
 
             $('#today').append(content);
+
+            // call the UV index function
+            console.log(res.coord.lat, res.coord.lon);
+            // uv(res.coord.lat, res.coord.lon);
         }
     });
 
@@ -68,16 +70,29 @@ function weather(city) {
 function uv(lat, lon) {
     let qurl = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
     // ajax call for uv index
+    let uvIndex = $('<button>').addClass('waves-effect waves-teal btn-flat')
     $.ajax({
         url: qurl,
         type: 'GET',
         dataType: 'json',
-        success: function(res){
+        success: function (res) {
             console.log(res.value);
-            let un
+            // let uvIndex = $('<button>')
+            //     .addClass('waves-effect waves-teal btn-flat')
+                uvIndex.text(res.value);
+            if(res.value < 3) {
+                uvIndex.addClass('green');
+            } else if(res.value >= 3 && res.value < 7){
+                uvIndex.addClass('yellow');
+            } else {
+                uvIndex.addClass('red');
+            }
+
+            // let displayUV = $('<p>').text(`UV Index:  `);
+            // $('#weather').append(displayUV.append(uvIndex));
         }
     });
-
+    return uvIndex;
 }
 // function to call for 5 day forecast
 function forecast(city) {

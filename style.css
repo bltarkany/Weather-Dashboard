@@ -35,3 +35,15 @@ nav {
 #today {
     border-radius: 50px;
 }
+
+.green {
+    background-color: green;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.red {
+    background-color: red;
+}
