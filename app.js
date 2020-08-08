@@ -59,8 +59,11 @@ function weather(city) {
             $('#today').append(content);
 
             // call the UV index function
-            console.log(res.coord.lat, res.coord.lon);
+            // console.log(res.coord.lat, res.coord.lon);
             // uv(res.coord.lat, res.coord.lon);
+
+            // call 5 day forecast 
+            forecast(city);
         }
     });
 
@@ -68,11 +71,11 @@ function weather(city) {
 
 // function to call todays UV index
 function uv(lat, lon) {
-    let qurl = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
+    let query = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
     // ajax call for uv index
     let uvIndex = $('<button>').addClass('waves-effect waves-teal btn-flat')
     $.ajax({
-        url: qurl,
+        url: query,
         type: 'GET',
         dataType: 'json',
         success: function (res) {
@@ -96,7 +99,24 @@ function uv(lat, lon) {
 }
 // function to call for 5 day forecast
 function forecast(city) {
-
+    var query = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`;
+    $.ajax({
+        url: query,
+        type: 'GET',
+        dataType: 'json',
+        success: function(res) {
+            console.log(res);
+            let days = res.list.filter((reading) => {
+                return reading.dt_txt.includes("15:00:00")
+            });
+            console.log(days);
+            // for(let i = 0; i < res.list.length; i++) {
+            //     if (res.list[i].dt_txt.indexOf("15:00:00") !== -1) {
+            //         console.log(res.list[i]);
+            //     }
+            // }
+        }
+    });
 }
 
 
