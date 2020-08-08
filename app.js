@@ -1,6 +1,7 @@
 // global variable
 const apiKey = "91a8aba9a4e777059b0459d4f649ec84";
 
+
 // grab local storage for search history or equals an empty array
 let history = JSON.parse(window.localStorage.getItem('history')) || [];
 
@@ -106,8 +107,9 @@ function forecast(city) {
         dataType: 'json',
         success: function(res) {
             console.log(res);
+            $('#forecast').empty();
             let days = res.list.filter((reading) => {
-                return reading.dt_txt.includes("9:00:00")
+                return reading.dt_txt.includes("15:00:00")
             });
             console.log(days);
             console.log(days[0].main.temp_max);
@@ -119,8 +121,8 @@ function forecast(city) {
                 console.log(new Date(day.dt_txt).toLocaleDateString());
                 let icon = $('<img>').attr('src', `http://openweathermap.org/img/wn/${day.weather[0].icon}.png`);
                 let temp = $('<p>').text(`Temp: ${day.main.temp}° F`);
-                let feels = $('<p>').text(`Feels Like: ${day.main.feels_like}° F`);
-                let humidity = $('<p>').text(`Humidity: ${day.main.humidity}`)
+                let feels = $('<p>').text(`Feels: ${day.main.feels_like}°F`);
+                let humidity = $('<p>').text(`Humidity: ${day.main.humidity}%`)
                 let wind = $('<p>').text(`Wind: ${day.wind.speed} mph`);
                 // let descrip = $('<p>').text(`${day.weather[0].description}`);
                 // attach to the DOM
