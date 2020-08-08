@@ -68,7 +68,7 @@ function weather(city) {
 
 // function to call todays UV index
 function uv(lat, lon) {
-    let query = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
+    let query = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
     // ajax call for uv index
     let uvIndex = $('<button>').addClass('waves-effect waves-teal btn-flat')
     $.ajax({
@@ -95,7 +95,7 @@ function uv(lat, lon) {
 }
 // function to call for 5 day forecast
 function forecast(city) {
-    var query = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`;
+    var query = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`;
     $.ajax({
         url: query,
         type: 'GET',
