@@ -1,5 +1,5 @@
 // global variable
-
+const apiKey = "91a8aba9a4e777059b0459d4f649ec84";
 
 // grab local storage for search history or equals an empty array
 let history = JSON.parse(window.localStorage.getItem('history')) || [];
