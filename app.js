@@ -39,6 +39,7 @@ function weather(city) {
             $('#today').empty();
             console.log(res.name);
             console.log(res.weather[0].description);
+            let uvi = uv(res.coord.lat, res.coord.lon);
             let name = $('<h3>').addClass('card-tile').text(res.name);
             let icon = $('<img>').attr('src', `http://openweathermap.org/img/wn/${res.weather[0].icon}.png`);
             let description = $('<p>').text(`Skies:   ${res.weather[0].description}`);
@@ -48,7 +49,6 @@ function weather(city) {
             let max = $('<p>').text(`Today's High Temp:   ${res.main.temp_max}° F`);
             let min = $('<p>').text(`Today's Low Temp:   ${res.main.temp_min}° F`);
             let wind = $('<p>').text(`Wind Speed:    ${res.wind.speed} mph`);
-            let uvi = uv(res.coord.lat, res.coord.lon);
             let displayUV = $('<p>').text(`UV Index:  `);
 
             let content = $('<div>')
@@ -107,9 +107,26 @@ function forecast(city) {
         success: function(res) {
             console.log(res);
             let days = res.list.filter((reading) => {
-                return reading.dt_txt.includes("15:00:00")
+                return reading.dt_txt.includes("9:00:00")
             });
             console.log(days);
+            console.log(days[0].main.temp_max);
+            days.forEach((day) => {
+                let col = $('<div>').addClass('col s6')
+                let card = $('<div>').addClass('card days');
+                let content = $('<div>').addClass('card-content');
+                let date = $('<h5>').addClass('card-title').text(new Date(day.dt_txt).toLocaleDateString());
+                console.log(new Date(day.dt_txt).toLocaleDateString());
+                let icon = $('<img>').attr('src', `http://openweathermap.org/img/wn/${day.weather[0].icon}.png`);
+                let temp = $('<p>').text(`Temp: ${day.main.temp}° F`);
+                let feels = $('<p>').text(`Feels Like: ${day.main.feels_like}° F`);
+                let humidity = $('<p>').text(`Humidity: ${day.main.humidity}`)
+                let wind = $('<p>').text(`Wind: ${day.wind.speed} mph`);
+                // let descrip = $('<p>').text(`${day.weather[0].description}`);
+                // attach to the DOM
+                content.append(date, icon, temp, feels, humidity, wind);
+                $('#forecast').append(col.append(card.append(content)));
+            });
             // for(let i = 0; i < res.list.length; i++) {
             //     if (res.list[i].dt_txt.indexOf("15:00:00") !== -1) {
             //         console.log(res.list[i]);

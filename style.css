@@ -5,6 +5,10 @@ body {
     line-height: 150%;
 }
 
+.container {
+    margin: 100px;
+}
+
 header {
     margin-bottom: 50px;
 }
@@ -46,4 +50,8 @@ nav {
 
 .red {
     background-color: red;
+}
+
+.days {
+    width: 200px;
 }
