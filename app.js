@@ -1,5 +1,4 @@
 // global variable
-const apiKey = "91a8aba9a4e777059b0459d4f649ec84";
 
 
 // grab local storage for search history or equals an empty array
@@ -77,7 +76,6 @@ function uv(lat, lon) {
         type: 'GET',
         dataType: 'json',
         success: function (res) {
-            console.log(res.value);
             // let uvIndex = $('<button>')
             //     .addClass('waves-effect waves-teal btn-flat')
                 uvIndex.text(res.value);
